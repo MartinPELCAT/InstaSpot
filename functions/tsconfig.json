@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "noImplicitReturns": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "outDir": "build",
+    "sourceMap": false,
+    "strict": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2018",
+    "module": "commonjs",
+    "lib": ["es2018", "DOM"]
+  },
+  "compileOnSave": true,
+  "include": ["src"]
+}
