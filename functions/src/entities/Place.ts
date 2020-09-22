@@ -25,6 +25,6 @@ export class Place extends Table {
   @Field(() => [Rate])
   rates: Rate[];
 
-  @Field()
+  @Field({ nullable: true })
   averageNote: number;
 }

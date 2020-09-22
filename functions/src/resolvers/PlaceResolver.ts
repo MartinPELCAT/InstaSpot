@@ -1,12 +1,11 @@
 import { firestore } from "firebase-admin";
 import { Arg, FieldResolver, Query, Resolver, Root } from "type-graphql";
 import { Place } from "../entities/Place";
-import { Rate } from "../entities/Rate";
-import { TABLES } from "../types/constants";
+import { RateDatas, TABLES } from "../types/constants";
 
 @Resolver(() => Place)
 export class PlaceResolver {
-  @Query(() => [Place])
+  @Query(() => [Place], { nullable: true })
   async places() {
     const snapshot = await firestore().collection(TABLES.PLACE).get();
     return snapshot.docs.map((place) => {
@@ -51,10 +50,7 @@ export class PlaceResolver {
       .where("placeId", "==", place.id)
       .get();
 
-    const rates = snapshot.docs.map((rate) => {
-      return { id: rate.id, ...rate.data() };
-    });
-
-    return (rates as Rate[]).reduce((a, b) => a + b.grade, 0) / rates.length;
+    const rates = snapshot.docs.map((rate) => rate.data() as RateDatas);
+    return rates.reduce((a, { grade }) => a + grade, 0) / rates.length;
   }
 }

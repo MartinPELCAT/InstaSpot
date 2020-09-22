@@ -12,6 +12,6 @@ export class Table {
   @Field(() => Date, { nullable: false })
   updatedAt: firestore.Timestamp;
 
-  @Field(() => Date, { nullable: true })
-  deletedAt: firestore.Timestamp;
+  @Field(() => Date, { nullable: true }) // return date to the clients
+  deletedAt: firestore.Timestamp; // Timestamp in code
 }
