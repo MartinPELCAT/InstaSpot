@@ -5,16 +5,16 @@ import { Table } from "../entities/Table";
 export class TableResolver {
   @FieldResolver()
   async createdAt(@Root() table: Table) {
-    return table.createdAt.toDate();
+    return table.createdAt?.toDate();
   }
 
   @FieldResolver()
   async deletedAt(@Root() table: Table) {
-    return table.deletedAt.toDate();
+    return table.deletedAt?.toDate();
   }
 
   @FieldResolver()
   async updatedAt(@Root() table: Table) {
-    return table.updatedAt.toDate();
+    return table.updatedAt?.toDate();
   }
 }

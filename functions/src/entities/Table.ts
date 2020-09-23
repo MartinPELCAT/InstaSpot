@@ -6,10 +6,10 @@ export class Table {
   @Field()
   id: string;
 
-  @Field(() => Date, { nullable: false })
+  @Field(() => Date, { nullable: true })
   createdAt: firestore.Timestamp;
 
-  @Field(() => Date, { nullable: false })
+  @Field(() => Date, { nullable: true })
   updatedAt: firestore.Timestamp;
 
   @Field(() => Date, { nullable: true }) // return date to the clients

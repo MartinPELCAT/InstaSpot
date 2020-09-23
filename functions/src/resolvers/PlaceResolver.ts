@@ -1,6 +1,14 @@
 import { firestore } from "firebase-admin";
-import { Arg, FieldResolver, Query, Resolver, Root } from "type-graphql";
+import {
+  Arg,
+  FieldResolver,
+  Mutation,
+  Query,
+  Resolver,
+  Root,
+} from "type-graphql";
 import { Place } from "../entities/Place";
+import { AddPlaceInput } from "../types/AddPlaceInput";
 import { RateDatas, TABLES } from "../types/constants";
 
 @Resolver(() => Place)
@@ -30,6 +38,25 @@ export class PlaceResolver {
   @Query(() => [Place])
   async newPlaces() {
     //TODO: implements new Places
+  }
+
+  @Mutation(() => Place)
+  async addPlace(@Arg("data") newPlace: AddPlaceInput) {
+    return await firestore()
+      .collection(TABLES.PLACE)
+      .add({ ...newPlace })
+      .then(async (snapshot) => {
+        const addedData = await firestore()
+          .collection(TABLES.PLACE)
+          .doc(snapshot.id)
+          .get();
+        return {
+          id: addedData.id,
+          ...addedData.data(),
+          updatedAt: firestore.Timestamp.now(),
+          createdAt: firestore.Timestamp.now(),
+        };
+      });
   }
 
   @FieldResolver()
