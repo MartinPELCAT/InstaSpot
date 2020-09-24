@@ -13,6 +13,7 @@ import { RateDatas, TABLES } from "../types/constants";
 
 @Resolver(() => Place)
 export class PlaceResolver {
+  
   @Query(() => [Place], { nullable: true })
   async places() {
     const snapshot = await firestore().collection(TABLES.PLACE).get();
@@ -46,10 +47,7 @@ export class PlaceResolver {
       .collection(TABLES.PLACE)
       .add({ ...newPlace })
       .then(async (snapshot) => {
-        const addedData = await firestore()
-          .collection(TABLES.PLACE)
-          .doc(snapshot.id)
-          .get();
+        const addedData = await snapshot.get();
         return {
           id: addedData.id,
           ...addedData.data(),
@@ -76,7 +74,6 @@ export class PlaceResolver {
       .collection(TABLES.RATE)
       .where("placeId", "==", place.id)
       .get();
-
     const rates = snapshot.docs.map((rate) => rate.data() as RateDatas);
     return rates.reduce((a, { grade }) => a + grade, 0) / rates.length;
   }

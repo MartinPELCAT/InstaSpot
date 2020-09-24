@@ -1,3 +1,4 @@
+import { Place } from "../entities/Place";
 import { Rate } from "../entities/Rate";
 
 export const TABLES = {
@@ -5,4 +6,6 @@ export const TABLES = {
   RATE: "rates",
 };
 
-export type RateDatas = Omit<Rate, "id">;
+export type RateDatas = Partial<Rate>;
+
+export type PlaceItem = Partial<Place>;

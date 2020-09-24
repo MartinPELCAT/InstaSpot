@@ -7,7 +7,6 @@ import {
   Container,
   Box,
 } from "@material-ui/core";
-import { SearchZone } from "./SearchZone";
 
 const useStyle = makeStyles({
   appbar: {
@@ -29,20 +28,21 @@ const useStyle = makeStyles({
 const AppBar: FunctionComponent = () => {
   const styles = useStyle();
   return (
-    <ApplicationBar position="static" className={styles.appbar} elevation={1}>
-      <Container>
-        <Toolbar className={styles.toolbar}>
-          <Box flexGrow={1}>
-            <Box display="flex">
-              <Typography variant="h4" className={styles.title}>
-                Insta Spot
-              </Typography>
+    <>
+      <ApplicationBar position="static" className={styles.appbar} elevation={1}>
+        <Container>
+          <Toolbar className={styles.toolbar}>
+            <Box flexGrow={1}>
+              <Box display="flex">
+                <Typography variant="h4" className={styles.title}>
+                  Insta Spot
+                </Typography>
+              </Box>
             </Box>
-          </Box>
-          <SearchZone />
-        </Toolbar>
-      </Container>
-    </ApplicationBar>
+          </Toolbar>
+        </Container>
+      </ApplicationBar>
+    </>
   );
 };
 

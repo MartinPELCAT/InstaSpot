@@ -7,7 +7,7 @@ import { buildSchemaSync } from "type-graphql";
 import { Container } from "typedi";
 import { PlaceResolver } from "./resolvers/PlaceResolver";
 import { TableResolver } from "./resolvers/TableResolver";
-import { seedDatabase } from "./seed";
+// import { seedDatabase } from "./seed";
 import { isEqual } from "./utils/compare";
 
 initializeApp();
@@ -36,12 +36,13 @@ exports.updateTrigger = functions.firestore
   });
 
 exports.createTrigger = functions.firestore
-  .document("{collection}/{doc}")//on every collection document change
-  .onCreate((snapshot) => {
+  .document("{collection}/{doc}") //on every collection document change
+  .onCreate((snapshot, ctx) => {
+    console.log(ctx.auth?.uid);
     return snapshot.ref.update({
       createdAt: snapshot.createTime.toDate(),
       updatedAt: snapshot.createTime.toDate(),
     });
   });
 
-seedDatabase();
+// seedDatabase();
