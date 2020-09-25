@@ -1,12 +1,13 @@
 import React, { FunctionComponent, lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import AppBar from "./components/app-bar";
+import AppBar from "./components/AppBar";
 import { Container, Box } from "@material-ui/core";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-const Home = lazy(() => import("./pages/Home"));
+const Home = lazy(() => import("./pages/Home/Home"));
 
 const client = new ApolloClient({
-  uri: "http://localhost:5001/instagram-spot/us-central1/gql",
+  // uri: "http://localhost:5001/instagram-spot/us-central1/gql",
+  uri: "https://us-central1-instagram-spot.cloudfunctions.net/gql",
   cache: new InMemoryCache(),
 });
 

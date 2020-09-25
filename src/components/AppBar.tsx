@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import {
   AppBar as ApplicationBar,
   Toolbar,
@@ -25,7 +25,7 @@ const useStyle = makeStyles({
     fontWeight: "bold",
   },
 });
-const AppBar: FunctionComponent = () => {
+export default function () {
   const styles = useStyle();
   return (
     <>
@@ -44,6 +44,4 @@ const AppBar: FunctionComponent = () => {
       </ApplicationBar>
     </>
   );
-};
-
-export default AppBar;
+}

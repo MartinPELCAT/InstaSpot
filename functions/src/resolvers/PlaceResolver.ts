@@ -1,19 +1,11 @@
 import { firestore } from "firebase-admin";
-import {
-  Arg,
-  FieldResolver,
-  Mutation,
-  Query,
-  Resolver,
-  Root,
-} from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Place } from "../entities/Place";
 import { AddPlaceInput } from "../types/AddPlaceInput";
-import { RateDatas, TABLES } from "../types/constants";
+import { TABLES } from "../types/constants";
 
 @Resolver(() => Place)
 export class PlaceResolver {
-  
   @Query(() => [Place], { nullable: true })
   async places() {
     const snapshot = await firestore().collection(TABLES.PLACE).get();
@@ -55,26 +47,5 @@ export class PlaceResolver {
           createdAt: firestore.Timestamp.now(),
         };
       });
-  }
-
-  @FieldResolver()
-  async rates(@Root() place: Place) {
-    const snapshot = await firestore()
-      .collection(TABLES.RATE)
-      .where("placeId", "==", place.id)
-      .get();
-    return snapshot.docs.map((rate) => {
-      return { id: rate.id, ...rate.data() };
-    });
-  }
-
-  @FieldResolver()
-  async averageNote(@Root() place: Place) {
-    const snapshot = await firestore()
-      .collection(TABLES.RATE)
-      .where("placeId", "==", place.id)
-      .get();
-    const rates = snapshot.docs.map((rate) => rate.data() as RateDatas);
-    return rates.reduce((a, { grade }) => a + grade, 0) / rates.length;
   }
 }

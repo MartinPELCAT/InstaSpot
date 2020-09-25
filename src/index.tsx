@@ -4,9 +4,19 @@ import "./assets/css/main.css";
 import { App } from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { initializeApp } from "firebase/app";
-import serviceAccount from "./config/instagram-spot-firebase-adminsdk-noxt0-5e5834ad04.json";
 
-initializeApp(serviceAccount);
+const firebaseConfig = {
+  apiKey: "AIzaSyAqOguaETbj1-u2tM84nXzowgEfsNNcM94",
+  authDomain: "instagram-spot.firebaseapp.com",
+  databaseURL: "https://instagram-spot.firebaseio.com",
+  projectId: "instagram-spot",
+  storageBucket: "instagram-spot.appspot.com",
+  messagingSenderId: "353801176020",
+  appId: "1:353801176020:web:788b9d7b72fe44310b8c41",
+  measurementId: "G-7J3M0335YS",
+};
+
+initializeApp(firebaseConfig);
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
